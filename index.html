@@ -124,10 +124,10 @@
                         (function(){
                             // Functions
                             function functionBuildQuiz(){
-                                // variable to store the HTML solution
+                                // variable for value storage
                                 const solution = [];
 
-                                // for each question...
+                                // each question...
                                 questionSet.forEach(
                                 (faceValue, questionCount) => {
 
@@ -137,7 +137,7 @@
                                     // and for each available answer...
                                     for(letter in faceValue.solutionOutput){
 
-                                    // ...add an HTML radio button
+                                    // HTML radio button
                                     solutionOutput.push(
                                         `<label>
                                         <input type="radio" name="question${questionCount}" value="${letter}">
