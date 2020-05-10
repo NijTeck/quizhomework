@@ -1,51 +1,42 @@
-# Scope Activity #1
+# 04 Web APIs: Code Quiz
 
-## Instructions
+As you proceed in your career as a web developer, you will probably be asked to complete a coding assessment, which is typically a combination of multiple-choice questions and interactive challenges. Build a timed code quiz with multiple-choice questions. This app will run in the browser and feature dynamically updated HTML and CSS powered by your JavaScript code. It will also feature a clean and polished user interface and be responsive, ensuring that it adapts to multiple screen sizes.
 
-* Open `Unsolved/index.html` in a browser and then open the console.
+## User Story
 
-* With your neighbor, compare the results in the console to the JavaScript in `index.html` and answer the questions in the comments.
+```
+AS A coding bootcamp student
+I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+SO THAT I can gauge my progress compared to my peers
+```
 
-* **HINT**: Read the [MDN docs on closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
+## Acceptance Criteria
 
+```
+GIVEN I am taking a code quiz
+WHEN I click the start button
+THEN a timer starts and I am presented with a question
+WHEN I answer a question
+THEN I am presented with another question
+WHEN I answer a question incorrectly
+THEN time is subtracted from the clock
+WHEN all questions are answered or the timer reaches 0
+THEN the game is over
+WHEN the game is over
+THEN I can save my initials and score
+```
 
+The following animation demonstrates the application functionality:
 
-function myLocalScope() {
-    'use strict';
-  
-    // Only change code below this line
-  var myVar = "Data stored";
-    console.log('inside myLocalScope', myVar);
-  }
-myLocalScope();
+![code quiz](./Assets/04-web-apis-homework-demo.gif)
 
-function timesFive(num) {
-    return num * 5;
-  }
+### Review
 
-  function timesFive(num) {
-    return num * 5;
-  
-  }
-  
-  console.log(timesFive(5));
-  console.log(timesFive(2));
-  console.log(timesFive(0));
+You are required to submit the following for review:
 
-  // Setup
-var sum = 0;
+* The URL of the functional, deployed application.
 
-function addThree() {
-  sum = sum + 3;
-}
+* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
 
-// Only change code below this line
-function addFive() {
-    sum = sum + 5;
-}
-sum();
-
-// Only change code above this line
-
-addThree();
-addFive();
+- - -
+© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
