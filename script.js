@@ -1,6 +1,10 @@
+
+
 // JavaScript Code starts here 
-              
-              function startTimer(duration, display) {
+ // Idea for timer borrowed from  https://www.freecodecamp.org/forum/t/my-quiz-jquery-quiz-with-timer/185013/2 
+
+
+function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
     setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -24,201 +28,207 @@ jQuery(function ($) {
 });
 
 
+// code for timer ends. 
+// mutiple lines of code here were source  from https://simplestepscode.com/javascript-quiz-tutorial/,  https://css-tricks.com/building-a-simple-quiz/ 
+(function(){
+    function functionBuildQuiz(){
+        // variable to store the HTML solution
+        const solution = [];
 
-                        (function(){
-                            // Functions
-                            function functionBuildQuiz(){
-                                // variable for value storage
-                                const solution = [];
+        // for each question...
+        questionSet.forEach(
+        (faceValue, questionCount) => {
 
-                                // each question...
-                                questionSet.forEach(
-                                (faceValue, questionCount) => {
+            // variable to store the list of possible solutionOutput
+            const solutionOutput = [];
 
-                                    // variable to store the list of possible solutionOutput
-                                    const solutionOutput = [];
+            // and for each available answer...
+            for(letter in faceValue.solutionOutput){
 
-                                    // and for each available answer...
-                                    for(letter in faceValue.solutionOutput){
+            // ...add an HTML radio button
+            solutionOutput.push(
+                `<label>
+                <input type="radio" name="question${questionCount}" value="${letter}">
+                ${letter} :
+                ${faceValue.solutionOutput[letter]}
+                </label>`
+            );
+            }
 
-                                    // HTML radio button
-                                    solutionOutput.push(
-                                        `<label>
-                                        <input type="radio" name="question${questionCount}" value="${letter}">
-                                        ${letter} :
-                                        ${faceValue.solutionOutput[letter]}
-                                        </label>`
-                                    );
-                                    }
+            // add this question and its solutionOutput to the solution
+            solution.push(
+            `<div class="slide">
+                <div class="question"> ${faceValue.ask} </div>
+                <div class="solutionOutput"> ${solutionOutput.join("")} </div>
+            </div>`
+            );
+        }
+        );
 
-                                    // add this question and its solutionOutput to the solution
-                                    solution.push(
-                                    `<div class="slide">
-                                        <div class="question"> ${faceValue.ask} </div>
-                                        <div class="solutionOutput"> ${solutionOutput.join("")} </div>
-                                    </div>`
-                                    );
-                                }
-                                );
+        
 
-                                // finally combine our solution list into one string of HTML and put it on the page
-                                quizContainer.innerHTML = solution.join('');
-                            }
+        // finally combine our solution list into one string of HTML and put it on the page
+        quizContainer.innerHTML = solution.join('');
+    }
 
-                            function showResults(){
+    function showResults(){
 
-                                // gather answer containers from our quiz
-                                const answerContainers = quizContainer.querySelectorAll('.solutionOutput');
+        // gather answer containers from our quiz
+        const answerContainers = quizContainer.querySelectorAll('.solutionOutput');
 
-                                // keep track of user's solutionOutput
-                                let numCorrect = 0;
+        // keep track of user's solutionOutput
+        let numCorrect = 0;
 
-                                // for each question...
-                                questionSet.forEach( (faceValue, questionCount) => {
+        // for each question...
+        questionSet.forEach( (faceValue, questionCount) => {
 
-                                // find selected answer
-                                const answerContainer = answerContainers[questionCount];
-                                const selector = `input[name=question${questionCount}]:checked`;
-                                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+        // find selected answer
+        const answerContainer = answerContainers[questionCount];
+        const selector = `input[name=question${questionCount}]:checked`;
+        const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
-                                // if answer is correct
-                                if(userAnswer === faceValue.bestResponse){
-                                    // add to the number of correct solutionOutput
-                                    numCorrect++;
+        // if answer is correct
+        if(userAnswer === faceValue.bestResponse){
+            // add to the number of correct solutionOutput
+            numCorrect++;
 
-                                    // color the solutionOutput green
-                                    answerContainers[questionCount].style.color = 'lightgreen';
-                                }
-                                // if answer is wrong or blank
-                                else{
-                                    // color the solutionOutput red
-                                    answerContainers[questionCount].style.color = 'red';
-                                }
-                                });
+            // color the solutionOutput green
+            answerContainers[questionCount].style.color = 'lightgreen';
+        }
+        // if answer is wrong or blank
+        else{
+            // color the solutionOutput red
+            answerContainers[questionCount].style.color = 'red';
+        }
+        });
 
-                                // show number of correct solutionOutput out of total
-                                resultsContainer.innerHTML = `${numCorrect} out of ${questionSet.length}`;
-                            }
+        // show number of correct solutionOutput out of total
+        resultsContainer.innerHTML = `${numCorrect} out of ${questionSet.length}`;
+    }
 
-                            function showSlide(n) {
-                                slides[currentSlide].classList.remove('active-slide');
-                                slides[n].classList.add('active-slide');
-                                currentSlide = n;
-                                if(currentSlide === 0){
-                                previousButton.style.display = 'none';
-                                }
-                                else{
-                                previousButton.style.display = 'inline-block';
-                                }
-                                if(currentSlide === slides.length-1){
-                                nextButton.style.display = 'none';
-                                submitButton.style.display = 'inline-block';
-                                }
-                                else{
-                                nextButton.style.display = 'inline-block';
-                                submitButton.style.display = 'none';
-                                }
-                            }
+    // idea sourced from https://codepen.io/gcarino/pen/LDgtn
 
-                            function showNextSlide() {
-                                showSlide(currentSlide + 1);
-                            }
+    function showSlide(n) {
+        slides[currentSlide].classList.remove('active-slide');
+        slides[n].classList.add('active-slide');
+        currentSlide = n;
+        if(currentSlide === 0){
+        previousButton.style.display = 'none';
+        }
+        else{
+        previousButton.style.display = 'inline-block';
+        }
+        if(currentSlide === slides.length-1){
+        nextButton.style.display = 'none';
+        submitButton.style.display = 'inline-block';
+        }
+        else{
+        nextButton.style.display = 'inline-block';
+        submitButton.style.display = 'none';
+        }
+    }
 
-                            function showPreviousSlide() {
-                                showSlide(currentSlide - 1);
-                            }
+    function showNextSlide() {
+        showSlide(currentSlide + 1);
+    }
 
-                            // Variables
-                            const quizContainer = document.getElementById('quiz');
-                            const resultsContainer = document.getElementById('results');
-                            const submitButton = document.getElementById('submit');
-                            const questionSet = [
-                                    {
-                                        ask: "Why so JavaScript and Java have similar name?",
-                                        solutionOutput: {
-                                        A:  "JavaScript is a stripped-down version of Java",
-                                        B:  "JavaScript's syntax is loosely based on Java's",
-                                        C:  "They both originated on the island of Java",
-                                        D: "None of the above",
-                                        },
-                                        bestResponse: "B",
-                                    },
-                                    
-                                    {
-                                        ask: " When a user views a page containing a JavaScript program, which machine actually executes the script?",
-                                        solutionOutput: {
-                                        A:  " The User's machine running a Web browser",
-                                        B:  "The Web server",
-                                        C:  "They both originated on the island of Java",
-                                        D: "A central machine deep within Netscape's corporate offices",
-                                        },
-                                        bestResponse: "A",
-                                    },
-                                    
-                                    {
-                                        ask: "Why so JavaScript and Java have similar name?",
-                                        solutionOutput: {
-                                        A:  "JavaScript is a stripped-down version of Java",
-                                        B:  "JavaScript's syntax is loosely based on Java's",
-                                        C:  "They both originated on the island of Java",
-                                        D: "None of the above",
-                                        },
-                                        bestResponse: "A",
-                                    },
-                                    
-                                    {
-                                        ask: "Which one of these is a JavaScript package manager?",
-                                        solutionOutput: {
-                                        A: "Node.js",
-                                        B: "TypeScript",
-                                        C: "npm"
-                                        },
-                                        bestResponse: "C"
-                                    },
-                                    
-                                    {
-                                        ask: "Why so JavaScript and Java have similar name?",
-                                        solutionOutput: {
-                                        A:  "JavaScript is a stripped-down version of Java",
-                                        B:  "JavaScript's syntax is loosely based on Java's",
-                                        C:  "They both originated on the island of Java",
-                                        D: "None of the above",
-                                        },
-                                        bestResponse: "A",
-                                    },
-                                    
+    function showPreviousSlide() {
+        showSlide(currentSlide - 1);
+    }
 
-                                    
-                                    {
-                                        ask: "Who invented JavaScript?",
-                                        solutionOutput: {
-                                        A: "Douglas Crockford",
-                                        B: "Sheryl Sandberg",
-                                        C: "Brendan Eich"
-                                        },
-                                        bestResponse: "c"
-                                    },
-                                ];
+    // Variables
+    // some idea sourced from http://cs.wellesley.edu/~cs204/assignments/a08/quiz.html 
+// question section , contains all questions for the quiz. 
 
 
-                                console.log(questionSet);
+    const quizContainer = document.getElementById('quiz');
+    const resultsContainer = document.getElementById('results');
+    const submitButton = document.getElementById('submit');
+    const questionSet = [
+            {
+                ask: "Why so JavaScript and Java have similar name?",
+                solutionOutput: {
+                A:  "JavaScript is a stripped-down version of Java",
+                B:  "JavaScript's syntax is loosely based on Java's",
+                C:  "They both originated on the island of Java",
+                D: "None of the above",
+                },
+                bestResponse: "B",
+            },
+            
+            {
+                ask: " When a user views a page containing a JavaScript program, which machine actually executes the script?",
+                solutionOutput: {
+                A:  " The User's machine running a Web browser",
+                B:  "The Web server",
+                C:  "They both originated on the island of Java",
+                D: "A central machine deep within Netscape's corporate offices",
+                },
+                bestResponse: "A",
+            },
+            
+            {
+                ask: "Why so JavaScript and Java have similar name?",
+                solutionOutput: {
+                A:  "JavaScript is a stripped-down version of Java",
+                B:  "JavaScript's syntax is loosely based on Java's",
+                C:  "They both originated on the island of Java",
+                D: "None of the above",
+                },
+                bestResponse: "A",
+            },
+            
+            {
+                ask: "Which one of these is a JavaScript package manager?",
+                solutionOutput: {
+                A: "Node.js",
+                B: "TypeScript",
+                C: "npm"
+                },
+                bestResponse: "C"
+            },
+            
+            {
+                ask: "Why so JavaScript and Java have similar name?",
+                solutionOutput: {
+                A:  "JavaScript is a stripped-down version of Java",
+                B:  "JavaScript's syntax is loosely based on Java's",
+                C:  "They both originated on the island of Java",
+                D: "None of the above",
+                },
+                bestResponse: "A",
+            },
+            
 
-                            // Kick things off
-                            functionBuildQuiz();
+            
+            {
+                ask: "Who invented JavaScript?",
+                solutionOutput: {
+                A: "Douglas Crockford",
+                B: "Sheryl Sandberg",
+                C: "Brendan Eich"
+                },
+                bestResponse: "c"
+            },
+        ];
 
-                            // Pagination
-                            const previousButton = document.getElementById("previous");
-                            const nextButton = document.getElementById("next");
-                            const slides = document.querySelectorAll(".slide");
-                            let currentSlide = 0;
 
-                            // Show the first slide
-                            showSlide(currentSlide);
+        console.log(questionSet);
 
-                            // Event listeners
-                            submitButton.addEventListener('click', showResults);
-                            previousButton.addEventListener("click", showPreviousSlide);
-                            nextButton.addEventListener("click", showNextSlide);
-                            })();
+    // Kick things off
+    functionBuildQuiz();
 
-                        
+    // Pagination
+    const previousButton = document.getElementById("previous");
+    const nextButton = document.getElementById("next");
+    const slides = document.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    // Show the first slide
+    showSlide(currentSlide);
+
+    // Event listeners
+    submitButton.addEventListener('click', showResults);
+    previousButton.addEventListener("click", showPreviousSlide);
+    nextButton.addEventListener("click", showNextSlide);
+    })();
